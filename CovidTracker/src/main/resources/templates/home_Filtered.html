@@ -1,0 +1,99 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Covid Tracker Filtered</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+
+</head>
+
+<body>
+	<div class="container">
+		<h1>Covid Cases Across the world</h1>
+		<div class="jumbotron">
+			<h1 class="display-4">Total Cases</h1>
+			<p class="lead"></p>
+			<hr class="my-4">
+			<h3 th:text="${sumcases}"></h3>
+		</div>
+		<div class="input-group mb-3">
+		<input type="text" name="filter" id="filter" placeholder="Search"> <br>
+		</div>
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Country</th>
+					<th scope="col">State</th>
+					<th scope="col">Latest cases</th>
+				</tr>
+			</thead>
+			<tbody id="covidcases">
+				<tr th:each="allListOfCase : ${allListOfCases}">
+					<td th:text="${allListOfCase.country}"></td>
+					<td th:text="${allListOfCase.state}"></td>
+					<td th:text="${allListOfCase.NewCases}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+	<script type="text/javascript" th:inline="javascript">
+                            /*<![CDATA[*/
+                           
+                            var availableCases = /*[[${allListOfCases}]]*/ 
+                            
+                            /*]]>*/
+   $('#filter').keyup(function()
+     {
+          var value = $(this).val();
+          var filteredData = filteringProcess(value,availableCases);
+          ModifiedTable(filteredData);
+     })     
+                  
+    
+    
+    function filteringProcess(value,availableCases)
+    {
+                            	
+     updatedData =[];
+      var val = value.toLowerCase();
+      console.log("availableCases LENGTH"+availableCases.length);
+    	for(var i=0;i<availableCases.length;i++)
+    		{
+    		//
+    		  var country = availableCases[i].country.toLowerCase();
+    		  
+    		  var state = availableCases[i].state.toLowerCase();
+    		 
+    		  if(country.includes(val) || state.includes(val))
+    			  {
+    			  updatedData.push(availableCases[i]);
+    			  }
+    		}
+    	return updatedData;
+    }
+    
+    function ModifiedTable(filteredData)
+    {
+    	var table = document.getElementById("covidcases");
+    	table.innerHTML="";
+    	for(var i=0;i<filteredData.length;i++)
+    		{
+    		 //console.log("1st case inside methoddd"+JSON.stringify(filteredData[i].NewCases));
+    		 var row ="<tr><td>"+filteredData[i].country+"</td> <td>"+filteredData[i].state+"</td> <td>"+filteredData[i].newCases+"</td> </tr>" ;
+    		 table.innerHTML= table.innerHTML+row;       
+    		}
+    	
+    }
+     
+  </script>
+
+</body>
+
+</html>
