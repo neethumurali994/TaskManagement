@@ -8,6 +8,7 @@ public class CaseStatus {
 	private int NewCases;
 
 	
+	
 public String getCountry() {
 		return country;
 	}

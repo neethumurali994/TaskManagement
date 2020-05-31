@@ -22,6 +22,7 @@ import com.covid.CovidTracker.Model.CaseStatus;
 @Service
 public class DataAcessService {
 
+	
 	private final String virus_url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";     
 	private List<CaseStatus>  allList= new ArrayList<CaseStatus>();
 	public List<CaseStatus> getAllList() {

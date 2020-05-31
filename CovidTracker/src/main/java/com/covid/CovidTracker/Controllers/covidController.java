@@ -22,6 +22,7 @@ public class covidController {
 		model.addAttribute("allListOfCases", totallist);
 		model.addAttribute("sumcases", sumcases);
 		return "home";
+		
 	}
 	@GetMapping("/filtered")
 	public String showDetails_filtered(Model model) {
