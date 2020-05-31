@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<link rel="stylesheet" href="../../static/css/materia/bootstrap.min.css" th:href="@{css/materia/bootstrap.min.css}">
+<link rel="stylesheet" href="../../static/css/style.css" th:href="@{css/style.css}">
+<script th:src="@{webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{webjars/bootstrap/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/header::header">
+</div>
+
+<div layout:fragment="content" class="container">
+<form action="/allUsers" class="form-inline">
+<div class="form-group mb-2">
+<input type="text" class="form-control" name="name" placeholder="Search Users">
+<button type="submit" class="btn btn-primary">Search</button>
+</div>
+</form>
+<div class="jumbotron">
+<table class="table table-hover">
+
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col"></th>
+     
+    </tr>
+  </thead>
+  <tbody>
+    <tr  th:each="user: ${listOfUsers}" >
+     <td th:text="${user.name}"></td>
+      <td th:text="${user.email}"></td>
+      <td><a class="btn btn-primary btn-lg" th:href=@{/addtask(email=${user.email})} role="button">ADD TASK</a></td>
+      
+    </tr>
+    </tbody>
+  </table>
+    
+
+</div>
+</div>
+<div th:replace="fragments/footer::footer">
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<link rel="stylesheet" href="../../static/css/materia/bootstrap.min.css" th:href="@{css/materia/bootstrap.min.css}">
+<link rel="stylesheet" href="../../static/css/style.css" th:href="@{css/style.css}">
+<script th:src="@{webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{webjars/bootstrap/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/header::header">
+</div>	
+
+<div layout:fragment="content" style="margin-left:2%">
+  
+ <form th:action="@{/addtask}" th:object="${task}" method="post" >
+ <h1 class="text text-center">Task Assignment Form</h1>
+ 
+<br>
+    <div class="form-group">
+    <label for="datee" class="form-control-label">Date</label>
+    <input type="date" class="form-control" th:field="*{dateP}"  > 
+     <div class="text text-danger" th:if="${#fields.hasErrors('dateP')}" th:errors="*{dateP}"> </div>
+     </div>
+     
+     <div class="form-group">
+    <label for="start" class="form-control-label" >Start Time</label>
+    <input type="time" class="form-control" id="start" th:field="*{startTime}" > 
+     <div class="text text-danger" th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}"> </div>
+    </div>
+    
+    <div class="form-group">
+    <label for="end" class="form-control-label">End Time</label>
+    <input type="time" class="form-control" id="end" th:field="*{endTime}" >
+    <div class="text text-danger" th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}"> </div>
+     </div>
+    
+    <div class="form-group">
+    <label for="des" class="form-control-label">Description</label>
+    <input type="text" class="form-control" id="des" th:field="*{description}" >
+    <div class="text text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"> </div>
+     </div>
+    
+    <input type="submit" class="btn btn-primary" value="submit">
+    
+ </form>
+  
+</div>
+
+<div th:replace="fragments/footer::footer">
+</div>
+</body>
+</html>
